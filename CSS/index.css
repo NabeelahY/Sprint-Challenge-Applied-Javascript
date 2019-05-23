@@ -4,30 +4,6 @@
 .border-bottom-grey {
   border-bottom: 1px solid lightgrey;
 }
-@font-face {
-  font-family: 'PT Sans';
-  font-style: italic;
-  font-weight: 400;
-  src: local('PT Sans Italic'), local('PTSans-Italic'), url(https://fonts.gstatic.com/s/ptsans/v9/jizYRExUiTo99u79D0e0x8mN.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'PT Sans';
-  font-style: italic;
-  font-weight: 700;
-  src: local('PT Sans Bold Italic'), local('PTSans-BoldItalic'), url(https://fonts.gstatic.com/s/ptsans/v9/jizdRExUiTo99u79D0e8fOydLxUY.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'PT Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('PT Sans'), local('PTSans-Regular'), url(https://fonts.gstatic.com/s/ptsans/v9/jizaRExUiTo99u79D0KEwA.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'PT Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: local('PT Sans Bold'), local('PTSans-Bold'), url(https://fonts.gstatic.com/s/ptsans/v9/jizfRExUiTo99u79B_mh0O6tKA.ttf) format('truetype');
-}
 * {
   box-sizing: border-box;
 }
@@ -253,10 +229,7 @@ body {
 }
 .carousel {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
+  transform-style: preserve-3d;
   height: 500px;
   position: relative;
   overflow: hidden;
@@ -278,6 +251,8 @@ body {
   font-size: 40px;
   border-radius: 50%;
   position: absolute;
+  z-index: 1001;
+  /* Sit on top of everything */
   width: 50px;
   height: 50px;
   cursor: pointer;
@@ -300,5 +275,31 @@ body {
 }
 .carousel img {
   width: 100%;
-  display: none;
+}
+.carousel img.carousel-photo {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin: auto;
+  z-index: 100;
+  transition: transform 0.5s, opacity 0.5s, z-index 0.5s;
+}
+.carousel img.carousel-photo.initial,
+.carousel img.carousel-photo.active {
+  opacity: 1;
+  position: relative;
+  z-index: 900;
+}
+.carousel img.carousel-photo.prev,
+.carousel img.carousel-photo.next {
+  z-index: 800;
+}
+.carousel img.carousel-photo.prev {
+  transform: translateX(-100%);
+  /* Move 'prev' item to the left */
+}
+.carousel img.carousel-photo.next {
+  transform: translateX(100%);
+  /* Move 'next' item to the right */
 }
